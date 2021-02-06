@@ -4,7 +4,7 @@ Contributors: hqwebs
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 5.5
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,5 +94,10 @@ Source: https://www.freepik.com/free-photo/cute-little-squirrel-standing-middle-
 
 == Changelog ==
 
-= 1.0 =
+
+= 1.0.2 =
+* FIX Installation link in admin dashboard
+* Add descriptions in Customizer
+
+= 1.0.0 =
 * First public release

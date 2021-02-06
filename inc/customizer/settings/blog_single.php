@@ -15,7 +15,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'type' => 'select',
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single'),
-                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // TODO Add info - https://wordpress.org/support/article/post-formats/
                             // 
@@ -27,7 +27,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A single image. The first <img /> tag in the post could be considered the image. Alternatively, if the post consists only of a URL, that will be the image URL and the title of the post (post_title) will be the title attribute for the image. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Gallery
                             'hq_post_single_gallery_layout' => [
@@ -37,7 +37,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A gallery of images. Post will likely contain a gallery shortcode and will have image attachments. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Audio
                             'hq_post_single_audio_layout' => [
@@ -47,7 +47,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('An audio file or playlist. Could be used for Podcasting. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Video
                             'hq_post_single_video_layout' => [
@@ -57,7 +57,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A single video or video playlist. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Link
                             'hq_post_single_link_layout' => [
@@ -67,7 +67,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => esc_html_x('A link to another site. Themes may wish to use the first <a href=""> tag in the post content as the external link for that post. An alternative approach could be if the post consists only of a URL, then that will be the URL and the title (post_title) will be the name attached to the anchor for it. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Quote
                             'hq_post_single_quote_layout' => [
@@ -77,7 +77,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A quotation. Probably will contain a blockquote holding the quote content. Alternatively, the quote may be just the content, with the source/author being the title. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Status
                             'hq_post_single_status_layout' => [
@@ -87,7 +87,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A short status update, similar to a Twitter status update. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Chat
                             'hq_post_single_chat_layout' => [
@@ -97,7 +97,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('A chat transcript. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                             // Aside
                             'hq_post_single_aside_layout' => [
@@ -107,7 +107,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_post_single',
                                 'choices' => get_elementor_templates('single', 1),
                                 'description' => _x('Typically styled without a title. Similar to a Facebook note update. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                         ],
                         Marmot\Customizer\Settings::generate_layout_templates_controls('hq_post_single')

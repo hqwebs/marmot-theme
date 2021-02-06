@@ -1,12 +1,3 @@
-body {
-    &.page {
-        &:not(.elementor-page) {
-            max-width: $content_width;
-            margin-right: auto;
-            margin-left: auto;
-        }
-    }
-}
 #main-wrapper{
     height: 100%;
 }

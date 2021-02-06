@@ -14,7 +14,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'type' => 'select',
                                 'section' => 'hq_product_archive',
                                 'choices' => get_elementor_templates('archive'),
-                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description('archive'),
                             ],
                         ],
                         Marmot\Customizer\Settings::generate_layout_templates_controls('hq_product_archive')

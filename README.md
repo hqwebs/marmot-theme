@@ -5,7 +5,7 @@ Fully customizable WordPress theme. Build websites faster than ever before with 
 <strong>Requires at least:</strong> 5.0<br>
 <strong>Requires PHP:</strong> 7.0<br>
 <strong>Tested up to:</strong> 5.5<br>
-<strong>Stable tag:</strong> 1.0.1<br>
+<strong>Stable tag:</strong> 1.0.2<br>
 <strong>License:</strong> GPLv3 or later<br>
 <strong>License URI:</strong> http://www.gnu.org/licenses/gpl-3.0.html<br>
 

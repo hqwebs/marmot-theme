@@ -40,7 +40,7 @@ defined('MARMOT_DEBUG') || define('MARMOT_DEBUG', false);
  * @since 1.0.0
  * @var string
  */
-const THEME_VERSION = '1.0.1';
+const THEME_VERSION = '1.0.2';
 
 /**
  * Theme Unique Slug

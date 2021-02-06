@@ -26,7 +26,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'type' => 'select',
                                 'section' => 'hq_woocommerce_general',
                                 'choices' => get_elementor_templates('archive'),
-                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description('archive'),
                             ],
                             'hq_woocommerce_general_lists_product_layout' => [
                                 'default' => 'noeltmp',
@@ -35,7 +35,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'section' => 'hq_woocommerce_general',
                                 'choices' => get_elementor_templates('archive-post'),
                                 'description' => _x('This template will be used for displaying products in cart crosseell, product - related and upsell. ', 'settings', 'marmot')
-                                . \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                . \Marmot\Customizer\Settings::full_mode_requires_description('archive-post'),
                             ],
                         ],
                         Marmot\Customizer\Settings::generate_layout_templates_controls('hq_woocommerce_general')

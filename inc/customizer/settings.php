@@ -285,22 +285,6 @@ class Settings {
      */
     public static function generate_layout_templates_controls($section) {
         return [
-            // Layout Templates
-            $section . '_templates_title' => [
-                'setting_type' => null,
-                'control' => 'Marmot\Customizer\Controls',
-                'type' => 'sub-title',
-                'section' => $section,
-                'label' => _x('Layout Templates', 'settings', 'marmot'),
-            ],
-            $section . '_templates_link' => [
-                'setting_type' => null,
-                'label' => _x('Edit Templates', 'settings', 'marmot'),
-                'control' => 'Marmot\Customizer\Controls',
-                'type' => 'link',
-                'section' => $section,
-                'url' => get_admin_url(null, '/edit.php?post_type=elementor_library&tabs_group=library'),
-            ],
             // Header
             $section . '_header_template' => [
                 'default' => 'default',
@@ -320,16 +304,42 @@ class Settings {
         ];
     }
 
-    public static function full_mode_requires_description() {
+    /**
+     * Check full customization mode and return description for templates field
+     * 
+     * @since 1.0.0
+     * 
+     * @param string $type
+     * @return string
+     */
+    public static function full_mode_requires_description($type = '') {
         if (\Marmot\Marmot::is_full_customization_mode()) {
-            return false;
+            return self::elementor_tempalates_howto($type);
         }
         /* translators: %1$s is replaced with "one <a> tag" %2$s is replaced with "close </a> tag" */
         return sprintf(_x('Applies only if %1$s Full Customizable Theme Mode%2$s is enabled.',
                         'settings',
                         'marmot'),
-                '<a href="' . esc_url(admin_url('/customize.php?autofocus[control]=_hqt_theme_customizable_mode') . '" data-focus-control="_hqt_theme_customizable_mode">',
-                        '</a>')
+                '<a href="' . esc_url(admin_url('/customize.php?autofocus[control]=_hqt_theme_customizable_mode')) . '" data-focus-control="_hqt_theme_customizable_mode">',
+                '</a>'
+        );
+    }
+
+    /**
+     * Generate Elementor template description text
+     * 
+     * @since 1.0.2
+     * 
+     * @param string $type
+     * @return string
+     */
+    public static function elementor_tempalates_howto($type = '') {
+        /* translators: %1$s is replaced with "one <a> tag" %2$s is replaced with "close </a> tag" */
+        return sprintf(_x('Before choosing template, you have to create it %1$shere%2$s.(New templates will appear after refresh.)',
+                        'settings',
+                        'marmot'),
+                '<a target="_blank" href="' . esc_url(admin_url('/edit.php?post_type=elementor_library&tabs_group=library&elementor_library_type=' . $type)) . '">',
+                '</a>'
         );
     }
 

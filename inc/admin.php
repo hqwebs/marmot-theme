@@ -380,7 +380,7 @@ class Admin {
                                         $hq_widgets_for_elementor_slug = 'hq-widgets-for-elementor';
                                         $hq_widgets_for_elementor_init = 'hq-widgets-for-elementor/hq-widgets-for-elementor.php';
                                         if (!\HQLib\is_plugin_installed($hq_widgets_for_elementor_init)) {
-                                            $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $hq_widgets_for_elementor_init), 'install-plugin_' . $hq_widgets_for_elementor_init);
+                                            $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $hq_widgets_for_elementor_slug), 'install-plugin_' . $hq_widgets_for_elementor_slug);
                                         }
                                         $activate_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . $hq_widgets_for_elementor_init . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $hq_widgets_for_elementor_init);
                                         ?>

@@ -14,7 +14,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                                 'type' => 'select',
                                 'section' => 'hq_product_single',
                                 'choices' => get_elementor_templates('single'),
-                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description(),
+                                'description' => \Marmot\Customizer\Settings::full_mode_requires_description('single'),
                             ],
                         ],
                         Marmot\Customizer\Settings::generate_layout_templates_controls('hq_product_single')
