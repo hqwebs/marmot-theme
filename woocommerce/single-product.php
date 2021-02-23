@@ -11,15 +11,16 @@ if (\Marmot\Marmot::is_full_customization_mode()) {
 
     get_header('shop');
 
-    $tmp = \HQLib\get_post_meta(null, 'woocommerce_product_template');
-    if (!empty($tmp) && $tmp != 'default') {
-        display_elementor_template($tmp);
+    $tpl = \HQLib\get_post_meta(null, 'woocommerce_product_template');
+    if (!empty($tpl) && $tpl != 'default') {
+        display_elementor_template($tpl);
     } else {
-        $tmp = get_theme_mod('hq_product_single_layout');
-        if ($tmp) {
-            display_elementor_template($tmp);
+        $tpl = get_theme_mod('hq_product_single_layout');
+        if (!empty($tpl) && $tpl != 'noeltmp') {
+            display_elementor_template($tpl);
         } else {
-            the_content();
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo \Marmot\set_elementor_template_message('single', 'product');
         }
     }
 

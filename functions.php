@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
  * @since 1.0.0
  * @var string
  */
-define('THEME_DIR', trailingslashit(get_template_directory()));
+define('MARMOT_THEME_DIR', trailingslashit(get_template_directory()));
 
 /**
  * Theme URL
@@ -24,7 +24,7 @@ define('THEME_DIR', trailingslashit(get_template_directory()));
  * @since 1.0.0
  * @var string
  */
-define('THEME_URL', get_template_directory_uri());
+define('MARMOT_THEME_URL', get_template_directory_uri());
 
 /**
  * Theme Debug Mode
@@ -40,7 +40,7 @@ defined('MARMOT_DEBUG') || define('MARMOT_DEBUG', false);
  * @since 1.0.0
  * @var string
  */
-const THEME_VERSION = '1.0.2';
+const THEME_VERSION = '1.0.3';
 
 /**
  * Theme Unique Slug
@@ -74,7 +74,7 @@ const THEME_EXTRA_PLUGIN_FILE = 'hqtheme-extra/hqtheme-extra.php';
 const THEME_EXTRA_PLUGIN_SLUG = 'hqtheme-extra';
 
 // Load Autoloader
-require_once THEME_DIR . 'inc/autoloader.php';
+require_once MARMOT_THEME_DIR . 'inc/autoloader.php';
 Autoloader::run();
 
 /**
@@ -167,13 +167,6 @@ class Marmot {
          * Init Elementor Extras
          */
         Elementor::instance();
-
-        /**
-         * Init Theme Options
-         */
-        if (class_exists('\HQExtra\HQExtra')) {
-            Theme_Options::instance();
-        }
 
         /**
          * Include functionality only if polylang is active
@@ -311,7 +304,7 @@ class Marmot {
          * Makes Theme available for translation.
          * Translations can be added to the /languages/ directory.
          */
-        load_theme_textdomain('marmot', THEME_DIR . '/languages');
+        load_theme_textdomain('marmot', MARMOT_THEME_DIR . '/languages');
 
         // Adds RSS feed links to <head> for posts and comments.
         add_theme_support('automatic-feed-links');
@@ -409,7 +402,7 @@ class Marmot {
         }
 
         // Loads JavaScript file with functionality specific to Marmot.
-        wp_enqueue_script(THEME_SLUG . '-script', THEME_URL . "/assets/js/functions$suffix.js", ['jquery'], THEME_VERSION, true);
+        wp_enqueue_script(THEME_SLUG . '-script', MARMOT_THEME_URL . "/assets/js/functions$suffix.js", ['jquery'], THEME_VERSION, true);
     }
 
     public static function get_base_uploads_dir() {
@@ -482,7 +475,7 @@ if (!function_exists('mar_fs')) {
                     'menu' => array(
                         'slug' => 'marmot',
                         'contact' => false,
-                        'support' => true,
+                        'support' => false,
                     ),
                     'navigation' => 'menu',
                 ));

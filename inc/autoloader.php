@@ -73,7 +73,7 @@ class Autoloader {
                 )
         );
 
-        $filename = THEME_DIR . 'inc/' . $filename . '.php';
+        $filename = MARMOT_THEME_DIR . 'inc/' . $filename . '.php';
 
         if (is_readable($filename)) {
             // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound

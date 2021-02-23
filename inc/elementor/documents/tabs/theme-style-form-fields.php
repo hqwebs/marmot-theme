@@ -25,6 +25,9 @@ class Theme_Style_Form_Fields extends Tab_Base {
     protected function register_tab_controls() {
         $label_selectors = [
             '{{WRAPPER}} label',
+            // HQ Selectors
+            '{{WRAPPER}} .hq-checkbox-label > span',
+            '{{WRAPPER}} .hq-radio-label > span',
         ];
 
         $input_selectors = [
@@ -161,6 +164,147 @@ class Theme_Style_Form_Fields extends Tab_Base {
                     'separator' => 'before',
                 ]
         );
+
+        $this->add_control('form_radio_checkbox_field_heading', [
+            'type' => Controls_Manager::HEADING,
+            'label' => __('Checkboxes and Radios', 'marmot'),
+            'separator' => 'before',
+                ]
+        );
+
+        $this->add_group_control(Group_Control_Typography::get_type(), [
+            'name' => 'form_radio_checkbox_field_typography',
+            'selector' => '{{WRAPPER}} .hq-checkbox label span, {{WRAPPER}} .hq-radio label span',
+        ]);
+
+        $this->add_control('form_radio_checkbox_field_text_color', [
+            'label' => __('Text Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label span, {{WRAPPER}} .hq-radio label span' => 'color: {{VALUE}};',
+            ],
+        ]);
+
+        $this->add_responsive_control('form_radio_checkbox_field_size', [
+            'label' => __('Size', 'marmot'),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 15,
+                    'max' => 50,
+                ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label span:before,'
+                . '{{WRAPPER}} .hq-radio label span:before' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}',
+                '{{WRAPER}} .hq-checkbox label span:after' => 'width: calc({{SIZE}}{{UNIT}} / 2.5); height: calc({{SIZE}}{{UNIT}} / 1.666); top: calc(-{{SIZE}}{{UNIT}} / 5); left: calc({{SIZE}}{{UNIT}} / 2 - {{SIZE}}{{UNIT}} / 5)',
+                '{{WRAPPER}} .hq-radio label span:after' => 'width: calc({{SIZE}}{{UNIT}} / 2.5); height: calc({{SIZE}}{{UNIT}} / 2.5); left: calc({{SIZE}}{{UNIT}} / 2 - {{SIZE}}{{UNIT}} / 5)',
+            ],
+        ]);
+
+        $this->add_responsive_control('form_radio_checkbox_field_spacing', [
+            'label' => __('Input Spacing', 'marmot'),
+            'type' => Controls_Manager::SLIDER,
+            'range' => [
+                'px' => [
+                    'min' => 20,
+                    'max' => 50,
+                ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label, {{WRAPPER}} .hq-radio label' => 'padding-left: {{SIZE}}{{UNIT}}',
+            ],
+        ]);
+
+        $this->add_responsive_control('form_checkbox_field_border_radius', [
+            'label' => __('Checkbox Border Radius', 'marmot'),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%'],
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label span:before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+        ]);
+
+        $this->add_responsive_control('form_radio_field_border_radius', [
+            'label' => __('Radio Border Radius', 'marmot'),
+            'type' => Controls_Manager::DIMENSIONS,
+            'size_units' => ['px', '%'],
+            'selectors' => [
+                '{{WRAPPER}} .hq-radio label span:before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+        ]);
+
+        $this->start_controls_tabs('tabs_form_radio_checkbox_field_style');
+
+        $this->start_controls_tab('tab_form_radio_checkbox_field_unchecked', [
+            'label' => __('Unchecked', 'marmot'),
+        ]);
+
+        $this->add_group_control(Group_Control_Border::get_type(), [
+            'name' => 'form_radio_checkbox_unchecked_field_border',
+            'label' => __('Border', 'marmot'),
+            'selector' => '{{WRAPPER}} .hq-checkbox label span:before, {{WRAPPER}} .hq-radio label span:before',
+        ]);
+
+        $this->add_control('form_radio_checkbox_unchecked_field_background_color', [
+            'label' => __('Background Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label span:before, {{WRAPPER}} .hq-radio label span:before' => 'background-color: {{VALUE}};',
+            ],
+        ]);
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab('tab_form_radio_checkbox_field_checked', [
+            'label' => __('Checked', 'marmot'),
+        ]);
+
+        $this->add_control('form_checkbox_checked_field_text_color', [
+            'label' => __('Check Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label input:checked ~ span:after' => 'border-color: {{VALUE}}',
+            ],
+        ]);
+        
+        $this->add_control('form_radio_checked_field_text_color', [
+            'label' => __('Radio Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-radio label input:checked ~ span:after' => 'background: {{VALUE}};',
+            ],
+        ]);
+
+        $this->add_control('form_checkbox_checked_field_background_color', [
+            'label' => __('Checkbox Background Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label input:checked ~ span:before' => 'background-color: {{VALUE}};',
+            ],
+        ]);
+
+        $this->add_control('form_radio_checked_field_background_color', [
+            'label' => __('Radio Background Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-radio label input:checked ~ span:before' => 'background-color: {{VALUE}};',
+            ],
+                ]
+        );
+        
+        $this->add_control('form_checkbox_radio_checked_field_border_color', [
+            'label' => __('Border Color', 'marmot'),
+            'type' => Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .hq-checkbox label input:checked ~ span:before,'
+                . '{{WRAPPER}} .hq-radio label input:checked ~ span:before' => 'border-color: {{VALUE}};',
+            ],
+                ]
+        );
+
+        $this->end_controls_tab();
+
 
         $this->end_controls_section();
     }

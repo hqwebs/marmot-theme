@@ -55,28 +55,28 @@ class Admin {
         self::$included_premium_plugins = [
             'marmot-enhancer-pro' => [
                 'name' => 'Marmot Enhancer PRO',
-                'logo_url' => THEME_URL . '/assets/images/admin/logo-marmot-enhancer-pro.png',
+                'logo_url' => MARMOT_THEME_URL . '/assets/images/admin/logo-marmot-enhancer-pro.png',
                 'description' => _x('Import awesome templates with a click, create stunning popups, attach custom headers and footers on each page, use advanced widgets for Elementor with Dynamic Tags, create unique WooCommerce checkout flow and more, and more...', 'admin', 'marmot'),
                 'init' => 'marmot-enhancer-pro/marmot-enhancer-pro.php',
                 'constant' => '\HQPro\VERSION',
             ],
             'bdthemes-element-pack' => [
                 'name' => 'ElementPack PRO',
-                'logo_url' => THEME_URL . '/assets/images/admin/logo-element-pack.png',
+                'logo_url' => MARMOT_THEME_URL . '/assets/images/admin/logo-element-pack.png',
                 'description' => _x('Incredibly advanced, and super-flexible widgets, and A to Z essential addons to the Elementor Page Builder for WordPress.', 'admin', 'marmot'),
                 'init' => 'bdthemes-element-pack/bdthemes-element-pack.php',
                 'constant' => '\BDTEP_VER',
             ],
             'revslider' => [
                 'name' => 'Slider Revolution',
-                'logo_url' => THEME_URL . '/assets/images/admin/logo-slider-revolution.png',
+                'logo_url' => MARMOT_THEME_URL . '/assets/images/admin/logo-slider-revolution.png',
                 'description' => _x('Slider Revolution is more than just a WordPress slider. It helps beginner-and mid-level designers WOW their clients with pro-level visuals.', 'admin', 'marmot'),
                 'init' => 'revslider/revslider.php',
                 'constant' => '\RS_REVISION',
             ],
             'layerslider' => [
                 'name' => 'LayerSlider',
-                'logo_url' => THEME_URL . '/assets/images/admin/logo-layer-slider.png',
+                'logo_url' => MARMOT_THEME_URL . '/assets/images/admin/logo-layer-slider.png',
                 'description' => _x('Premium multi-purpose animation platform. Sliders, image galleries, slideshows with mind-blowing effects.', 'admin', 'marmot'),
                 'init' => 'LayerSlider/layerslider.php',
                 'constant' => '\LS_MINIMUM_PHP_VERSION',
@@ -122,14 +122,16 @@ class Admin {
 // phpcs:disable
         ?>
         <h3 class="p-0 mt-2 mb-0"><?php _ex('Wellcome to Marmot Theme.', 'admin', 'marmot'); ?></h3>
-        <p class="">
+        <p>
             <?php _ex('Marmot theme needs some plugins and setup to use all features.', 'admin', 'marmot'); ?><br>
             <?php _ex('Do not worry. It is very easy!', 'admin', 'marmot'); ?><br>
             <?php _ex('Just go to our dashboard page and flow the steps.', 'admin', 'marmot'); ?><br>
             <?php _ex('Your site will be ready in a couple of minutes.', 'admin', 'marmot'); ?>
         </p>
-        <a href="<?php echo esc_url($dashboard_link); ?>" class="button button-primary mb-2 mr-1"><?php _ex('Marmot Dashboard', 'admin', 'marmot'); ?></a>
-        <a href="<?php echo add_query_arg(['marmot-complete-wellcome' => 1]); ?>"><?php _ex('Thanks! I do not need help for setup.', 'admin', 'marmot'); ?></a>
+        <p>
+            <a href="<?php echo esc_url($dashboard_link); ?>" class="button button-primary mr-1"><?php _ex('Marmot Dashboard', 'admin', 'marmot'); ?></a>
+            <a href="<?php echo add_query_arg(['marmot-complete-wellcome' => 1]); ?>"><?php _ex('Thanks! I do not need help for setup.', 'admin', 'marmot'); ?></a>
+        </p>
         <?php
 // phpcs:enable
         $message = ob_get_clean();
@@ -165,13 +167,15 @@ class Admin {
         // phpcs:disable
         ?>
         <h3 class="p-0 mt-2 mb-0"><?php _ex('Marmot Theme requires some plugins and setup to use all features.', 'admin', 'marmot'); ?></h3>
-        <p class="">
+        <p>
             <?php _ex('Do not worry. It is very easy!', 'admin', 'marmot'); ?><br>
             <?php _ex('Just go to our setup wizard page and follow the steps.', 'admin', 'marmot'); ?><br>
             <?php _ex('Your site will be ready in a couple of minutes.', 'admin', 'marmot'); ?>
         </p>
-        <a href="<?php echo esc_url(admin_url('admin.php?page=marmot-theme-setup')); ?>" class="button button-primary mb-2 mr-1"><?php _ex('Setup Wizard', 'admin', 'marmot'); ?></a>
-        <a href="<?php echo add_query_arg(['marmot-complete-setup' => 1]); ?>"><?php _ex('Thanks! I do not need help for setup.', 'admin', 'marmot'); ?></a>
+        <p>
+            <a href="<?php echo esc_url(admin_url('admin.php?page=marmot-theme-setup')); ?>" class="button button-primary mr-1"><?php _ex('Setup Wizard', 'admin', 'marmot'); ?></a>
+            <a href="<?php echo add_query_arg(['marmot-complete-setup' => 1]); ?>"><?php _ex('Thanks! I do not need help for setup.', 'admin', 'marmot'); ?></a>
+        </p>
         <?php
         // phpcs:enable
         $message = ob_get_clean();
@@ -206,8 +210,8 @@ class Admin {
             return;
         }
 
-        wp_enqueue_style('hqt-admin', THEME_URL . '/assets/css/admin/admin.css', '', THEME_VERSION);
-        wp_enqueue_script(THEME_SLUG . '-admin-scripts', THEME_URL . "/assets/js/admin/scripts.js", ['jquery'], THEME_VERSION, true);
+        wp_enqueue_style('hqt-admin', MARMOT_THEME_URL . '/assets/css/admin/admin.css', '', THEME_VERSION);
+        wp_enqueue_script(THEME_SLUG . '-admin-scripts', MARMOT_THEME_URL . "/assets/js/admin/scripts.js", ['jquery'], THEME_VERSION, true);
         $data = [
             'translate' => [
                 'activate' => _x('Activate', 'admin', 'marmot'),
@@ -230,12 +234,22 @@ class Admin {
         <div class="hqt-admin-page">
             <div class="wrap">
                 <h1 class="hqt-invisible"></h1>
-                <div class="hqt-container">
+                <ul class="marmot-tabs-nav" data-sticky>
+                    <li><a href="#dashboard"><?php _ex('Dashboard', 'admin', 'marmot'); ?></a></li>
+                    <?php if (defined('\HQExtra\VERSION')) : ?>
+                        <li><a href="<?php echo esc_url(admin_url('admin.php?page=' . THEME_SLUG . '-theme-options')); ?>"><?php _ex('Theme Options', 'admin', 'marmot'); ?></a></li>
+                        <li><a href="<?php echo esc_url(admin_url('admin.php?page=' . THEME_SLUG . '-ready-sites')); ?>"><?php _ex('Ready Sites', 'admin', 'marmot'); ?></a></li>
+                    <?php endif; ?>
+                    <li><a href="#hq-widgets-for-elementor"><?php _ex('Free Widgets', 'admin', 'marmot'); ?></a></li>
+                    <li><a href="#marmot-enhancer-pro"><?php _ex('PRO Version', 'admin', 'marmot'); ?></a></li>
+                    <li class="tab-clear"><a href="<?php echo THEME_SITE_URL; ?>/support/" target="_blank"><?php _ex('Need Help?', 'admin', 'marmot'); ?></a></li>
+                </ul>
+                <div class="hqt-container mt-0" id="dashboard">
                     <div class="hqt-row mt-3">
                         <div class="hqt-col-1-2__md">
                             <div class="hqt-logo-wrap">
                                 <a href="<?php echo THEME_SITE_URL; ?>/?utm_source=wp-admin&utm_medium=logo&utm_campaign=default&utm_content=dashboard-top" target="_blank">
-                                    <img src="<?php echo THEME_URL; ?>/assets/images/admin/logo-marmot.png">
+                                    <img src="<?php echo MARMOT_THEME_URL; ?>/assets/images/admin/logo-marmot.png">
                                 </a>
                             </div>
                             <h3 class="my-1"><?php _ex('Welcome to Marmot Theme', 'admin', 'marmot'); ?></h3>
@@ -301,17 +315,12 @@ class Admin {
                                 <a target="_blank" href="<?php echo THEME_SITE_URL; ?>/?utm_source=wp-admin&utm_medium=link&utm_campaign=default&utm_content=learn-more" ><?php _ex('Learn More', 'admin', 'marmot'); ?></a>
                             </div>
                         </div>
-                        <div class="hqt-col-1-2__md d-flex align-items-center">
-                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/dashboard-main.png" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="hqt-row mt-5">
-                        <div class="hqt-col-1-2__sm hqt-col-2-3__lg hqt-col-1-2__xl">
+                        <div class="hqt-col-1-2__md">
                             <div class="hqt-row">
                                 <div class="hqt-col-1-2 mb-4">
                                     <div class="d-flex border-rad-10 overflow-hidden box-shadow">
                                         <div class="p-2" style="background: #f40c3c;">
-                                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/startup.svg" class="hqt-svg-icon white">
+                                            <i class="dashicons dashicons-admin-appearance hqt-dashboard-icon"></i>
                                         </div>
                                         <div class="d-flex flex-basis-100 align-items-center">
                                             <h3 class="px-3"><?php _ex('Modern Design', 'admin', 'marmot'); ?></h3>
@@ -321,7 +330,7 @@ class Admin {
                                 <div class="hqt-col-1-2 mb-4">
                                     <div class="d-flex border-rad-10 overflow-hidden box-shadow">
                                         <div class="p-2" style="background: #f7382b;">
-                                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/responsive.svg" class="hqt-svg-icon white">
+                                            <i class="dashicons dashicons-fullscreen-alt hqt-dashboard-icon"></i>
                                         </div>
                                         <div class="d-flex flex-basis-100 align-items-center">
                                             <h3 class="px-3"><?php _ex('Fully Responsive', 'admin', 'marmot'); ?></h3>
@@ -331,7 +340,7 @@ class Admin {
                                 <div class="hqt-col-1-2 mb-4">
                                     <div class="d-flex border-rad-10 overflow-hidden box-shadow">
                                         <div class="p-2" style="background: #fb7015;">
-                                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/development.svg" class="hqt-svg-icon white">
+                                            <i class="dashicons dashicons-admin-generic hqt-dashboard-icon"></i>
                                         </div>
                                         <div class="d-flex flex-basis-100 align-items-center">
                                             <h3 class="px-3"><?php _ex('No Coding Required', 'admin', 'marmot'); ?></h3>
@@ -341,7 +350,7 @@ class Admin {
                                 <div class="hqt-col-1-2 mb-4">
                                     <div class="d-flex border-rad-10 overflow-hidden box-shadow">
                                         <div class="p-2" style="background: #ffa002;">
-                                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/content.svg" class="hqt-svg-icon white">
+                                            <i class="dashicons dashicons-admin-settings hqt-dashboard-icon"></i>
                                         </div>
                                         <div class="d-flex flex-basis-100 align-items-center">
                                             <h3 class="px-3"><?php _ex('Customize Everything', 'admin', 'marmot'); ?></h3>
@@ -349,55 +358,54 @@ class Admin {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="hqt-col-1-2__sm hqt-col-1-3__lg hqt-col-1-2__xl px-6">
                             <h2 class="mt-0 mb-2 text-medium"><?php _ex('Use Elementor templates for', 'admin', 'marmot'); ?></h2>
                             <h3 class="mt-2 mb-0"><?php _ex('Header and Footer', 'admin', 'marmot'); ?></h3>
-                            <a href="<?php echo THEME_SITE_URL; ?>/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_content=learn-more" target="_blank">
+                            <a href="<?php echo THEME_SITE_URL; ?>/documentation/category/headers-and-footers/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_content=learn-more" target="_blank">
                                 <?php _ex('Learn how', 'admin', 'marmot'); ?>
                             </a>
                             <h3 class="mt-2 mb-0"><?php _ex('Single and Archive post page', 'admin', 'marmot'); ?></h3>
-                            <a href="<?php echo THEME_SITE_URL; ?>/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_content=learn-more" target="_blank">
+                            <a href="<?php echo THEME_SITE_URL; ?>/documentation/category/blog/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_content=learn-more" target="_blank">
                                 <?php _ex('Learn how', 'admin', 'marmot'); ?>
                             </a>
                             <h3 class="mt-2 mb-0"><?php _ex('WooCommerce product and Woo Archive page', 'admin', 'marmot'); ?></h3>
                             <a href="<?php echo THEME_SITE_URL; ?>/woocommerce-integration/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_content=learn-more" target="_blank">
-                                <?php _ex('Learn how', 'admin', 'marmot'); ?>
+                                <?php _ex('Learn more', 'admin', 'marmot'); ?>
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="hqt-container" id="hq-widgets-for-elementor">
                     <div class="hqt-row mt-3 align-items-center">
                         <div class="hqt-col-1-2__md">
-                            <h2 class="mt-6 mb-0 text-medium"><?php _ex('Widgets for Elementor', 'admin', 'marmot'); ?></h2>
-                            <p><?php _ex('Make the process of website building a lot more fun and easy.', 'admin', 'marmot'); ?></p>
+                            <img src="<?php echo MARMOT_THEME_URL; ?>/assets/images/admin/logo-hq-widgets.png">
+                            <h2 class="mt-5 mb-0 text-medium"><?php _ex('More Widgets - Endless Customization', 'admin', 'marmot'); ?></h2>
+                            <p><?php _ex('With our free widgets plugin you can build your website with no limits. Tens of widgets available.', 'admin', 'marmot'); ?></p>
                             <div class="mt-5">
                                 <?php
                                 $learn_more_class = '';
-                                if (class_exists('\HQExtra\HQExtra')) {
-                                    if (!defined('\HQWidgetsForElementor\VERSION')) {
-                                        $install_url = '';
-                                        $hq_widgets_for_elementor_name = 'HQ Widgets For Elementor';
-                                        $hq_widgets_for_elementor_slug = 'hq-widgets-for-elementor';
-                                        $hq_widgets_for_elementor_init = 'hq-widgets-for-elementor/hq-widgets-for-elementor.php';
-                                        if (!\HQLib\is_plugin_installed($hq_widgets_for_elementor_init)) {
-                                            $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $hq_widgets_for_elementor_slug), 'install-plugin_' . $hq_widgets_for_elementor_slug);
-                                        }
-                                        $activate_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . $hq_widgets_for_elementor_init . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $hq_widgets_for_elementor_init);
-                                        ?>
-                                        <a href="#" 
-                                           data-hqt-btn="install-activate-plugin"
-                                           data-action-label="prepend"
-                                           data-plugin-name="<?php echo esc_attr($hq_widgets_for_elementor_name) ?>" 
-                                           data-install-url="<?php echo esc_attr($install_url); ?>" 
-                                           data-activate-url="<?php echo esc_attr($activate_url); ?>" 
-                                           data-callback="refresh-page" 
-                                           class="btn btn-primary mt-3 mr-2">
-                                               <?php echo esc_html($hq_widgets_for_elementor_name) ?>
-                                        </a>
-                                        <?php
-                                    } else {
-                                        $learn_more_class = 'btn btn-border';
+                                if (!defined('\HQWidgetsForElementor\VERSION')) {
+                                    $install_url = '';
+                                    $hq_widgets_for_elementor_name = 'HQ Widgets For Elementor';
+                                    $hq_widgets_for_elementor_slug = 'hq-widgets-for-elementor';
+                                    $hq_widgets_for_elementor_init = 'hq-widgets-for-elementor/hq-widgets-for-elementor.php';
+                                    if (!is_plugin_installed($hq_widgets_for_elementor_init)) {
+                                        $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=' . $hq_widgets_for_elementor_slug), 'install-plugin_' . $hq_widgets_for_elementor_slug);
                                     }
+                                    $activate_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . $hq_widgets_for_elementor_init . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $hq_widgets_for_elementor_init);
+                                    ?>
+                                    <a href="#" 
+                                       data-hqt-btn="install-activate-plugin"
+                                       data-action-label="prepend"
+                                       data-plugin-name="<?php echo esc_attr($hq_widgets_for_elementor_name) ?>" 
+                                       data-install-url="<?php echo esc_attr($install_url); ?>" 
+                                       data-activate-url="<?php echo esc_attr($activate_url); ?>" 
+                                       data-callback="refresh-page" 
+                                       class="btn btn-primary mt-3 mr-2">
+                                           <?php echo esc_html($hq_widgets_for_elementor_name) ?>
+                                    </a>
+                                    <?php
+                                } else {
+                                    $learn_more_class = 'btn btn-border';
                                 }
                                 ?>
                                 <a href="<?php echo THEME_SITE_URL; ?>/hq-widgets-for-elementor/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_term=marmot&utm_content=dashboard-free-widgets" class="<?php echo $learn_more_class ?>" target="_blank">
@@ -406,40 +414,33 @@ class Admin {
                             </div>
                         </div>
                         <div class="hqt-col-1-2__md">
-                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/dashboard-widgets.png" class="img-fluid">
                         </div>
                     </div>
                 </div>
-                <div class="hqt-container" style="border: solid 1px #ff0048;">
+                <div class="hqt-container" style="border: solid 1px #ff0048;" id="marmot-enhancer-pro">
                     <div class="hqt-row mt-3">
                         <div class="hqt-col-1-2__md">
                             <div class="hqt-logo-wrap">
                                 <a href="<?php echo THEME_SITE_URL; ?>/?utm_source=wp-admin&utm_medium=logo&utm_campaign=default&utm_content=dashboard-top" target="_blank">
-                                    <img src="<?php echo THEME_URL; ?>/assets/images/admin/logo-marmot-pro.png">
+                                    <img src="<?php echo MARMOT_THEME_URL; ?>/assets/images/admin/logo-marmot-pro.png">
                                 </a>
                             </div>
-                            <h2 class="mt-6 mb-0 pt-6 text-medium"><?php _ex('Add PRO Features to your site', 'admin', 'marmot'); ?></h2>
-                            <p><?php _ex('Access all PRO Demos. Improve theme templates system. Attach custom headers and footers by page, post, taxonomy, product and much more.', 'admin', 'marmot'); ?></p>
+                            <h2 class="mt-5 mb-0 text-medium"><?php _ex('Add PRO Features to Marmot theme', 'admin', 'marmot'); ?></h2>
+                            <p><?php _ex('Access all PRO Demos. Improve theme templates system. Attach custom headers and footers by page, post, taxonomy, product, premium support and much more.', 'admin', 'marmot'); ?></p>
                             <div class="mt-5">
                                 <?php echo $this->get_pro_button(['class' => 'btn-primary mr-2']); ?>
                                 <?php if (defined('\HQExtra\VERSION')) : ?>
                                     <a href="<?php echo esc_url(admin_url('admin.php?page=marmot-ready-sites')); ?>" class="btn btn-danger-border mr-2">
                                         <?php _ex('View Demos', 'admin', 'marmot'); ?>
                                     </a>
+                                    <a target="_blank" href="<?php echo THEME_SITE_URL; ?>/marmot-theme-pro/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_term=marmot&utm_content=pro-theme">
+                                        <?php _ex('Learn More', 'admin', 'marmot'); ?>
+                                    </a>
                                 <?php endif; ?>
-                                <a target="_blank" href="<?php echo THEME_SITE_URL; ?>/marmot-theme-pro/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_term=marmot&utm_content=pro-theme" class="">
-                                    <?php _ex('Learn More', 'admin', 'marmot'); ?>
-                                </a>
                             </div>
-                        </div>
-                        <div class="hqt-col-1-2__md d-flex align-items-center">
-                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/dashboard-demos.png" class="img-fluid">
                         </div>
                     </div>
                     <div class="hqt-row mt-3 mb-6 mx-0" style="background: #F8F8F8;">
-                        <div class="hqt-col-1-2__sm">
-                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/prowidgets.png" class="img-fluid">
-                        </div>
                         <div class="hqt-col-1-2__sm">
                             <ul class="hqt-list list-dot my-6 py-6">
                                 <li class="mb-3">
@@ -454,6 +455,10 @@ class Admin {
                                     <h3 class="m-0"><?php _ex('WooCommerce Cart widget', 'admin', 'marmot'); ?></h3>
                                     <p class="m-0"><?php _ex('Nice dropdown or offcanvas menu with all the products in the shopping cart allows the user to review and finish orders faster.', 'admin', 'marmot'); ?></p>
                                 </li>
+                            </ul>
+                        </div>
+                        <div class="hqt-col-1-2__sm">
+                            <ul class="hqt-list list-dot my-6 py-6">
                                 <li class="mb-3">
                                     <h3 class="m-0"><?php _ex('OpenTable Reservations', 'admin', 'marmot'); ?></h3>
                                     <p class="m-0"><?php _ex('Adds and customize OpenTable.com widget with no coding.', 'admin', 'marmot'); ?></p>
@@ -486,35 +491,54 @@ class Admin {
                         </div>
                     </div>
                     <div class="hqt-row my-3">
-                        <div class="hqt-col-1-2__sm px-3">
+                        <div class="hqt-col-1-2__sm hqt-col-1-4__lg">
                             <h3 class="mt-2 mb-0"><?php _ex('Advanced popup building system', 'admin', 'marmot'); ?></h3>
                             <p class="m-0"><?php _ex('Use Elementor widgets to create awesome popups. Any type of popup without coding.', 'admin', 'marmot'); ?></p>
                             <a href="https://marmot.hqwebs.net/popups-for-elementor/?utm_source=wp-admin&utm_medium=link&utm_campaign=default&utm_term=marmot&utm_content=dashboard-pro-section" target="_blank">
                                 <?php _ex('Learn more', 'admin', 'marmot'); ?>
                             </a>
+                        </div>
+                        <div class="hqt-col-1-2__sm hqt-col-1-4__lg">
                             <h3 class="mt-2 mb-0"><?php _ex('Access to reach popup library', 'admin', 'marmot'); ?></h3>
                             <p class="m-0"><?php _ex('Premade popups right behide a click.', 'admin', 'marmot'); ?></p>
                             <?php if ($this->license_pro_plugin_ready()) : ?>
-                                <a href="<?php echo esc_url(admin_url('edit.php?post_type=hqpopup&page=hqpopup-library')); ?>">
-                                    <?php _ex('Browse library', 'admin', 'marmot'); ?>
-                                </a>
+                                <?php
+                                $options = \HQLib\hq_get_option('theme_modules');
+                                if (\HQLib\Helper::is_module_active('popup', $options)) :
+                                    ?>
+                                    <a href="<?php echo esc_url(admin_url('edit.php?post_type=hqpopup&page=hqpopup-library')); ?>">
+                                        <?php _ex('Browse library', 'admin', 'marmot'); ?>
+                                    </a>
+                                    <?php
+                                else :
+                                    ?>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=marmot-theme-options&tab=theme_modules')); ?>">
+                                        <?php _ex('Activate Module', 'admin', 'marmot'); ?>
+                                    </a>
+                                <?php endif; ?>
                             <?php endif; ?>
+                        </div>
+                        <div class="hqt-col-1-2__sm hqt-col-1-4__lg">
                             <h3 class="mt-2 mb-0"><?php _ex('WooCommerce integration', 'admin', 'marmot'); ?></h3>
                             <p class="m-0"><?php _ex('Smooth user experience throughout the whole selling process.', 'admin', 'marmot'); ?></p>
                             <a href="<?php echo THEME_SITE_URL; ?>/woocommerce-integration/?utm_source=wp-admin&utm_medium=link&utm_campaign=default&utm_term=marmot&utm_content=dashboard-pro-section" target="_blank">
                                 <?php _ex('Learn more', 'admin', 'marmot'); ?>
                             </a>
+                        </div>
+                        <div class="hqt-col-1-2__sm hqt-col-1-4__lg">
                             <h3 class="mt-2 mb-0"><?php _ex('New features coming...', 'admin', 'marmot'); ?></h3>
                             <p class="m-0"><?php _ex('We are improving it all the time by adding new features and demos.', 'admin', 'marmot'); ?></p>
                             <a href="<?php echo THEME_SITE_URL; ?>/features/?utm_source=wp-admin&utm_medium=link&utm_campaign=default&utm_term=marmot&utm_content=dashboard-pro-section" target="_blank">
                                 <?php _ex('Learn More', 'admin', 'marmot'); ?>
                             </a>
-                            <div>
-                                <?php echo $this->get_pro_button(['class' => 'mt-3 mr-2']); ?>
-                            </div>
                         </div>
-                        <div class="hqt-col-1-2__sm">
-                            <img src="<?php echo THEME_URL; ?>/assets/images/admin/popup.png" class="img-fluid">
+                        <div class="hqt-col-1-1  mt-3">
+                            <?php echo $this->get_pro_button(['class' => 'mt-3 mr-2']); ?>
+                            <?php if (defined('\HQExtra\VERSION')) : ?>
+                                <a target="_blank" href="<?php echo THEME_SITE_URL; ?>/marmot-theme-pro/?utm_source=wp-admin&utm_medium=button&utm_campaign=default&utm_term=marmot&utm_content=pro-theme" class="btn btn-border">
+                                    <?php _ex('Learn More', 'admin', 'marmot'); ?>
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <h2 class="my-6 text-medium"><?php _ex('Included Premium Plugins', 'admin', 'marmot'); ?></h2>
@@ -586,9 +610,6 @@ class Admin {
                        ><?php _ex('HQTheme Extra', 'admin', 'marmot') ?></a>
                 </div>
                 <div class="hqt-col-1-2__md">
-                    <div class="px-6">
-                        <img src="<?php echo THEME_URL; ?>/assets/images/admin/dashboard-main.png" class="img-fluid">
-                    </div>
                 </div>
             </div>
         </div>
@@ -620,7 +641,7 @@ class Admin {
                 if (!class_exists('\HQPro\HQ_Pro')) {
                     $class = 'btn btn-primary' . (!empty($args['class']) ? ' ' . $args['class'] : '');
                     $install_url = '';
-                    if (!\HQLib\is_plugin_installed(self::$included_premium_plugins['marmot-enhancer-pro']['init'])) {
+                    if (!is_plugin_installed(self::$included_premium_plugins['marmot-enhancer-pro']['init'])) {
                         $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=marmot-enhancer-pro'), 'install-plugin_marmot-enhancer-pro');
                     }
                     $activate_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . self::$included_premium_plugins['marmot-enhancer-pro']['init'] . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . self::$included_premium_plugins['marmot-enhancer-pro']['init']);
@@ -640,6 +661,36 @@ class Admin {
                     return ob_get_clean();
                 }
             }
+        } else {
+            ob_start();
+            ?>
+            <div class="hqt-row border-rad-10 hqt-box-shadow my-3 mx-0 py-3 px-2" style="border-left: solid 4px #2096F3;">
+                <div class="hqt-col-1-1">
+                    <h3 class="p-0 mt-0 mb-3"><?php echo esc_html_x('Marmot Theme requires HQTheme Extra plugin to use all features.', 'admin', 'marmot'); ?></h3>
+                    <p class="mt-1 mb-3">
+                        <?php echo esc_html_x('It is very easy!', 'admin', 'marmot'); ?><br>
+                        <?php echo esc_html_x('Just use the button bellow to install and activate the plugin.', 'admin', 'marmot'); ?><br>
+                    </p>
+                    <?php
+                    $class = 'btn btn-primary';
+                    $install_url = '';
+                    if (!is_plugin_installed('hqtheme-extra/hqtheme-extra.php')) {
+                        $install_url = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=hqtheme-extra'), 'install-plugin_hqtheme-extra');
+                    }
+                    $activate_url = wp_nonce_url('plugins.php?action=activate&amp;plugin=' . 'hqtheme-extra/hqtheme-extra.php' . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . 'hqtheme-extra/hqtheme-extra.php');
+                    ?>
+                    <a href="#" 
+                       data-hqt-btn="install-activate-plugin"
+                       data-action-label="prepend"
+                       data-plugin-name="<?php echo esc_attr('HQTheme Extra') ?>" 
+                       data-install-url="<?php echo esc_attr($install_url); ?>" 
+                       data-activate-url="<?php echo esc_attr($activate_url); ?>"
+                       data-callback="refresh-page" 
+                       class="<?php echo esc_attr($class); ?>"><?php echo esc_html('HQTheme Extra') ?></a>
+                </div>
+            </div>
+            <?php
+            return ob_get_clean();
         }
     }
 

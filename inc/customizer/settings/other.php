@@ -12,7 +12,7 @@ $add_setting_controls = array_merge($add_setting_controls,
                         'type' => 'color',
                         'section' => 'hq_other',
                         'description' => '',
-                        
+                        'sanitize_callback' => 'sanitize_hex_color',
                     ],
         ])
 );

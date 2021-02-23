@@ -5,7 +5,7 @@ Fully customizable WordPress theme. Build websites faster than ever before with 
 <strong>Requires at least:</strong> 5.0<br>
 <strong>Requires PHP:</strong> 7.0<br>
 <strong>Tested up to:</strong> 5.5<br>
-<strong>Stable tag:</strong> 1.0.2<br>
+<strong>Stable tag:</strong> 1.0.3<br>
 <strong>License:</strong> GPLv3 or later<br>
 <strong>License URI:</strong> http://www.gnu.org/licenses/gpl-3.0.html<br>
 
@@ -33,12 +33,10 @@ Learn more about Marmot theme features on our website <a href="https://marmot.hq
 <h2>Installation</h2>
 
 <ol>
-<li>Download theme from <a href="https://github.com/hqwebs/marmot-theme/releases/download/1.0.1/marmot.zip">https://github.com/hqwebs/marmot-theme/releases/download/1.0.1/marmot.zip</a></li>
 <li>In WordPress dashboard, go to Appearance » Themes</li>
 <li>Click on "Add New"</li>
-<li>Click on "Upload Theme", locate the file on your computer and select it</li>
-<li>Click on "Install Now". See installation progress in lower left of screen.</li>
-<li>Theme should be installed successfully. Congratulations!</li>
+<li>Type 'Marmot' in the search form and press the 'Enter' key on your keyboard.</li>
+<li>Click on "Install". The installation will be ready in seconds.</li>
 <li>Activate Marmot!</li>
 </ol>
 

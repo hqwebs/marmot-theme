@@ -8,6 +8,7 @@
         init: function () {
             Marmot.translate = MarmotData.translate;
             Marmot.initHqtButtons();
+            Marmot.animateScroll();
         },
         // HQ Tabs
         initHqtButtons: function () {
@@ -125,6 +126,27 @@
                     $button.replaceWith(Marmot._('activated'));
                     break;
             }
+        },
+        animateScroll: function () {
+            // Internal links - smooth scroll
+            $('a[href*="#"]:not([href="#"]):not(.hq-noscroll):not(.wc-tabs a)').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        // http://api.jquery.com/animate/
+                        $('html, body').animate({
+                            scrollTop: target.offset().top - 50
+                        }, 500);
+                        return false;
+                    }
+                }
+            });
+
+            // Use empty links in menu - prevent scroll to top
+            $('a[href="#"]').click(function (e) {
+                e.preventDefault();
+            });
         },
         _: function (key) {
             if (Marmot.translate[key].length) {

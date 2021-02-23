@@ -141,9 +141,22 @@ class Layout {
         } elseif (is_search()) {
             display_elementor_template(get_theme_mod('hq_search_results_elementor_template'), $echo);
         } elseif (is_home()) {
-            display_elementor_template(get_theme_mod('hq_blog_home_layout'), $echo);
+            $tpl = get_theme_mod('hq_blog_home_layout');
+            if (!empty($tpl) && $tpl != 'noeltmp') {
+                display_elementor_template($tpl, $echo);
+            } else {
+                if ($echo) {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo \Marmot\set_elementor_template_message('blog-home');
+                }
+            }
         } elseif (is_attachment()) {
-            display_elementor_template(get_theme_mod('hq_attachment_elementor_template'), $echo);
+            $tpl = get_theme_mod('hq_attachment_elementor_template');
+            if (!empty($tpl) && $tpl != 'noeltmp') {
+                display_elementor_template($tpl, $echo);
+            } else {
+                self::the_content($echo);
+            }
         } elseif (is_single()) {
             if ('post' === get_post_type()) {
                 self::single_post_template($echo);
@@ -186,20 +199,21 @@ class Layout {
                 self::the_content($echo);
             } else {
                 // Load post content
-                $tmp = \HQLib\get_post_meta(null, 'single_template');
+                $tpl = \HQLib\get_post_meta(null, 'single_template');
 
-                if (!empty($tmp) && $tmp != 'default') {
-                    if ($tmp != 'noeltmp') {
-                        display_elementor_template($tmp, $echo);
-                    } else { // Load content if no template
-                        self::the_content($echo);
+                if (!empty($tpl) && $tpl != 'default') {
+                    if ($tpl != 'noeltmp') {
+                        display_elementor_template($tpl, $echo);
                     }
                 } else {
-                    $tmp = get_theme_mod('hq_' . get_post_type() . '_single_layout');
-                    if (!empty($tmp) && $tmp != 'noeltmp') {
-                        display_elementor_template($tmp, $echo);
-                    } else {
-                        self::the_content($echo);
+                    $tpl = get_theme_mod('hq_' . get_post_type() . '_single_layout');
+                    if (empty($tpl)) {
+                        if ($echo) {
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            echo \Marmot\set_elementor_template_message('single', get_post_type());
+                        }
+                    } elseif ($tpl != 'noeltmp') {
+                        display_elementor_template($tpl, $echo);
                     }
                 }
             }
@@ -224,22 +238,22 @@ class Layout {
                 self::the_content($echo);
             } else {
                 // Load blog content
-                $tmp = \HQLib\get_post_meta(null, 'single_template');
+                $tpl = \HQLib\get_post_meta(null, 'single_template');
 
-                if (!empty($tmp) && $tmp != 'default') {
-                    if ($tmp != 'noeltmp') {
-                        display_elementor_template($tmp, $echo);
+                if (!empty($tpl) && $tpl != 'default') {
+                    if ($tpl != 'noeltmp') {
+                        display_elementor_template($tpl, $echo);
                     } else { // Load content if no template
                         self::the_content($echo);
                     }
                 } else {
-                    $tmp = get_theme_mod('hq_post_single_' . get_post_format() . '_layout');
-                    if (!empty($tmp) && $tmp != 'default') {
-                        display_elementor_template($tmp, $echo);
+                    $tpl = get_theme_mod('hq_post_single_' . get_post_format() . '_layout');
+                    if (!empty($tpl) && $tpl != 'default') {
+                        display_elementor_template($tpl, $echo);
                     } else {
-                        $tmp = get_theme_mod('hq_post_single_standart_layout');
-                        if (!empty($tmp) && 'noeltmp' !== $tmp) {
-                            display_elementor_template($tmp, $echo);
+                        $tpl = get_theme_mod('hq_post_single_standart_layout');
+                        if (!empty($tpl) && 'noeltmp' !== $tpl) {
+                            display_elementor_template($tpl, $echo);
                         } else {
                             self::the_content($echo);
                         }
@@ -266,18 +280,18 @@ class Layout {
                 self::the_content($echo);
             } else {
                 // Load page content
-                $tmp = \HQLib\get_post_meta(null, 'single_template');
+                $tpl = \HQLib\get_post_meta(null, 'single_template');
 
-                if (!empty($tmp) && $tmp != 'default') {
-                    if ($tmp != 'noeltmp') {
-                        display_elementor_template($tmp, $echo);
+                if (!empty($tpl) && $tpl != 'default') {
+                    if ($tpl != 'noeltmp') {
+                        display_elementor_template($tpl, $echo);
                     } else { // Load content if no template
                         self::the_content($echo);
                     }
                 } else {
-                    $tmp = get_theme_mod('hq_page_elementor_template');
-                    if (!empty($tmp) && $tmp != 'noeltmp') {
-                        display_elementor_template($tmp, $echo);
+                    $tpl = get_theme_mod('hq_page_elementor_template');
+                    if (!empty($tpl) && $tpl != 'noeltmp') {
+                        display_elementor_template($tpl, $echo);
                     } else {
                         self::the_content($echo);
                     }
@@ -302,10 +316,26 @@ class Layout {
             if (!empty($tpl) && $tpl != 'default') { // By Taxonomy
                 display_elementor_template($tpl, $echo);
             } else { // Arvhive by post type
-                display_elementor_template(get_theme_mod('hq_' . get_post_type() . '_archive_layout'), $echo);
+                $tpl = get_theme_mod('hq_' . get_post_type() . '_archive_layout');
+                if (empty($tpl)) {
+                    if ($echo) {
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo \Marmot\set_elementor_template_message('archive', get_post_type());
+                    }
+                } elseif ($tpl != 'noeltmp') {
+                    display_elementor_template($tpl, $echo);
+                }
             }
         } else { // Arvhive by post type
-            display_elementor_template(get_theme_mod('hq_' . get_post_type() . '_archive_layout'), $echo);
+            $tpl = get_theme_mod('hq_' . get_post_type() . '_archive_layout');
+            if (empty($tpl)) {
+                if ($echo) {
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo \Marmot\set_elementor_template_message('archive', get_post_type());
+                }
+            } elseif (!empty($tpl) && $tpl != 'noeltmp') {
+                display_elementor_template($tpl, $echo);
+            }
         }
     }
 

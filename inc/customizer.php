@@ -89,7 +89,7 @@ class Customizer {
                 }
             }
         } else {
-            wp_enqueue_style(THEME_SLUG, THEME_URL . '/assets/css/no-elementor.css', false, THEME_VERSION);
+            wp_enqueue_style(THEME_SLUG, MARMOT_THEME_URL . '/assets/css/no-elementor.css', false, THEME_VERSION);
         }
     }
 
@@ -99,7 +99,7 @@ class Customizer {
      * @return void
      */
     public function customize_controls_enqueue_scripts() {
-        wp_enqueue_script(THEME_SLUG . '-customize', THEME_URL . '/assets/js/customize.js', array('jquery', 'customize-preview'), THEME_VERSION, true);
+        wp_enqueue_script(THEME_SLUG . '-customize', MARMOT_THEME_URL . '/assets/js/customize.js', array('jquery', 'customize-preview'), THEME_VERSION, true);
     }
 
     /**
@@ -182,12 +182,12 @@ class Customizer {
         }
 
         // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound
-        require THEME_DIR . 'lib/scssphp/scss.inc.php';
+        require MARMOT_THEME_DIR . 'lib/scssphp/scss.inc.php';
         $scss = new \ScssPhp\ScssPhp\Compiler([
             'cacheDir' => $SCSS_cache_dir,
             'forceRefresh' => true,
         ]);
-        $scss->setImportPaths(THEME_DIR . 'assets/scss/');
+        $scss->setImportPaths(MARMOT_THEME_DIR . 'assets/scss/');
 
         $variables = [
             'content_width' => (empty(get_option('elementor_container_width', 1140)) ? 1140 : get_option('elementor_container_width', 1140)) . 'px',
@@ -199,7 +199,7 @@ class Customizer {
 
         $scss->setVariables($variables);
 
-        $css = $scss->compile($filesystem->get_contents(THEME_DIR . 'assets/scss/style.scss'));
+        $css = $scss->compile($filesystem->get_contents(MARMOT_THEME_DIR . 'assets/scss/style.scss'));
 
         return $css;
     }
@@ -283,7 +283,7 @@ class Customizer {
                         'selectors' => isset($control['selectors']) ? $control['selectors'] : '',
                         'style_callback' => isset($control['style_callback']) ? $control['style_callback'] : null,
                         'post_js' => isset($control['transport']) ? $control['transport'] : '',
-                        'sanitize_callback' => isset($control['sanitize']) ? $control['sanitize'] : 'sanitize_text_field'
+                        'sanitize_callback' => isset($control['sanitize_callback']) ? $control['sanitize_callback'] : 'sanitize_text_field'
                     ]
             );
 
@@ -320,7 +320,7 @@ class Customizer {
      */
     public static function customize_controls_print_styles() {
         // Main customizer
-        wp_register_style(THEME_SLUG . '-customizer', THEME_URL . '/assets/css/admin/customizer.css', ['wp-color-picker', 'grapick'], THEME_VERSION, 'all');
+        wp_register_style(THEME_SLUG . '-customizer', MARMOT_THEME_URL . '/assets/css/admin/customizer.css', ['wp-color-picker', 'grapick'], THEME_VERSION, 'all');
         wp_enqueue_style(THEME_SLUG . '-customizer');
 
         $mobile_width = intval(get_theme_mod('elementor_viewport_md', 768));
@@ -350,10 +350,41 @@ class Customizer {
     /**
      * adds sanitization callback funtion : number
      */
-    public function sanitize_number($value) {
+    public static function sanitize_number($value) {
         $value = esc_attr($value); // clean input
         $value = (int) $value; // Force the value into integer type.
         return (0 < $value) ? $value : null;
+    }
+
+    /**
+     * Select sanitization callback
+     * 
+     * https://divpusher.com/blog/wordpress-customizer-sanitization-examples/
+     *
+     * @since 1.0.0
+     */
+    public static function sanitize_select($input, $setting) {
+        // Ensure input is a slug.
+        $input = sanitize_key($input);
+
+        // Get list of choices from the control associated with the setting.
+        $choices = $setting->manager->get_control($setting->id)->choices;
+
+        // If the input is a valid key, return it; otherwise, return the default.
+        return ( array_key_exists($input, $choices) ? $input : $setting->default );
+    }
+
+    /**
+     * Checkbox sanitization callback
+     * 
+     * https://divpusher.com/blog/wordpress-customizer-sanitization-examples/
+     *
+     * @since 1.0.0
+     */
+    function sanitize_checkbox($input) {
+
+        //returns true if checkbox is checked
+        return ( isset($input) ? true : false );
     }
 
 }

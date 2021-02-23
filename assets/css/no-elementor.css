@@ -768,13 +768,16 @@ to override any of the settings in this section, add your styling code in the cu
     display: block;
     color: #333;
     text-decoration: none;
-    padding: 8px 10px;
+    padding: 8px 5px;
     line-height: 1.2;
 }
+.site-navigation ul.primary-menu li.menu-item-has-children > a {
+    margin-right: 5px;
+} 
 .site-navigation ul.primary-menu li a:focus {
-    outline: none;
+/*    outline: none;
     text-decoration: underline dotted 1px;
-    text-underline-offset: 2px;
+    text-underline-offset: 2px;*/
 }
 .site-navigation ul.primary-menu li a:hover {
     color: #111;
@@ -805,6 +808,7 @@ to override any of the settings in this section, add your styling code in the cu
     z-index: 2;
     left: -999em;
     top: calc(100% + 15px);
+    padding: 0.5em;
     border: #eeeeee 1px solid;
     -webkit-transition: top 200ms ease;
     -o-transition: top 200ms ease;
@@ -824,7 +828,7 @@ to override any of the settings in this section, add your styling code in the cu
 .site-navigation ul.primary-menu ul li.focus ul {
     top: 0;
 }
-.site-navigation ul.primary-menu li ul li.menu-item-has-children a {
+.site-navigation ul.primary-menu li ul li.menu-item-has-children > a {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;

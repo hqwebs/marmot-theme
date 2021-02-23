@@ -11,12 +11,12 @@ if (\Marmot\Marmot::is_full_customization_mode()) {
 
     get_header('shop');
 
-    $tmp = 'noeltmp';
+    $tpl = 'noeltmp';
     $templateLoaded = 0;
     if (is_shop()) { // Load shop home
         $rawtpl = get_theme_mod('hq_woocommerce_general_list_layout');
         if (!empty($rawtpl) && $rawtpl != 'default') {
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
             $templateLoaded = 1;
         }
     } elseif (is_product_category() || is_product_tag()) { // By taxonomy
@@ -24,7 +24,7 @@ if (\Marmot\Marmot::is_full_customization_mode()) {
         $wterm = $wp_query->get_queried_object();
         $rawtpl = \HQLib\get_term_meta($wterm->term_id, 'archive_template');
         if (!empty($rawtpl) && $rawtpl != 'default') {
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
             $templateLoaded = 1;
         }
     }
@@ -32,12 +32,15 @@ if (\Marmot\Marmot::is_full_customization_mode()) {
     if (!$templateLoaded) { // Load archive if other are empty
         $rawtpl = get_theme_mod('hq_product_archive_layout');
         if (!empty($rawtpl) && $rawtpl != 'default') {
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
         }
     }
 
-    if ($tmp != 'noeltmp') {
-        display_elementor_template($tmp);
+    if ($tpl != 'noeltmp') {
+        display_elementor_template($tpl);
+    } else {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo \Marmot\set_elementor_template_message('archive', 'product');
     }
 
     get_footer('shop');

@@ -7,14 +7,15 @@ $add_setting_controls = array_merge($add_setting_controls,
                 [
                     '_hqt_theme_customizable_mode' => [
                         'default' => 'on',
-                        'label' => _x('Enable Full Customizable Theme Mode?', 'settings', 'marmot'),
+                        'label' => _x('Enable Full Customizable Mode?', 'settings', 'marmot'),
                         'type' => 'select',
                         'section' => 'hq_theme_mod',
                         'description' => 'Enable full customizations mode. Edit hedear, footer and content area with Elementor page bulder. This mode requires "HQTheme Extra" and "Elementor" plugins. Both are free.',
                         'choices' => [
                             '' => 'Off',
                             'on' => 'On',
-                        ]
+                        ],
+                        'sanitize_callback' => '\Marmot\Customizer::sanitize_select',
                     ],
         ])
 );

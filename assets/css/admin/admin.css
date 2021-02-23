@@ -203,7 +203,13 @@
 .hqt-box-shadow {
     box-shadow: 0 0 25px #f1f1f1;
 }
-/* DASHBOARD STEPS */
+/* DASHBOARD */
+.hqt-dashboard-icon {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+}
 .step-box {
     text-align: center;
 }
@@ -838,6 +844,54 @@
 #adminmenu .wp-submenu li .hqt-submenu-icon:before {
     content: '\21B3';
     padding: 0 5px;
+}
+/* ADMIN DASHBOARD TABS */
+.marmot-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.marmot-tabs-nav > li {
+    flex: none;
+    position: relative;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.marmot-tabs-nav > li:not(:last-of-type) {
+    margin-right: 10px;
+}
+.marmot-tabs-nav > li > a {
+    position: relative;
+    display: block;
+    padding: 1em;
+    color: #2196F3;
+    text-decoration: none;
+    border: none;
+}
+.marmot-tabs-nav > li:not(.tab-clear) > a {
+    background: #fff;
+    border-radius: 4px 4px 0 0;
+}
+.marmot-tabs-nav > li > a:focus {
+    outline: none;
+    box-shadow: none;
+}
+.marmot-tabs-nav > li > a:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 0;
+    height: 3px;
+    margin: auto;
+    background: #2196F3;
+    transition: width 0.1s ease-in-out;
+}
+.marmot-tabs-nav > li:hover a:after {
+    width: 100%;
 }
 /* HQT AJAX BUTTON LOADER */
 .hqt-btn-ellipsis {

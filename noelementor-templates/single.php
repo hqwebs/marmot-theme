@@ -18,7 +18,7 @@ while (have_posts()) : the_post();
                 <?php if (is_single()): ?>
                     <div class="post-meta">
                         <div><?php echo esc_html_x('By', 'posts archive', 'marmot'); ?> <?php the_author(); ?></div>
-                        <div><?php the_time('jS F Y') ?></div>
+                        <div><?php the_date() ?> <?php the_time() ?></div>
                         <div><?php echo esc_html_x('Category:', 'posts archive', 'marmot'); ?> <?php the_category(', ') ?></div>
                     </div>
                 <?php endif; ?>

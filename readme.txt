@@ -4,7 +4,7 @@ Contributors: hqwebs
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 5.5
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,8 +26,8 @@ Create amazing website fast and easy:
 
 Other features: Drag & Drop, Responsive, Translation Ready, Custom post types integrated. Premium features like popup building system, WooCommerce optimizations and some third-party premium plugins available with our PRO Plugin.
 
-Learn more on our website: https://marmor.hqwebs.net/marmot/
-Start exploring the demos: https://marmor.hqwebs.net/demo/
+Learn more on our website: https://marmot.hqwebs.net/marmot/
+Start exploring the demos: https://marmot.hqwebs.net/demo/
 
 * To use all theme features you have to install our free plugin "HQTheme Extra" and "Elementor Website Builder". It contains our common library and one-click demo import.
 Thank you for using our products :)
@@ -88,12 +88,20 @@ Copyright (c) 2015 Leaf Corcoran
 Licenses: MIT - https://raw.githubusercontent.com/scssphp/scssphp/master/LICENSE.md
 Source: https://github.com/scssphp/scssphp
 
-Screenshot image, Copyright Freepik
-License: https://www.freepikcompany.com/legal#nav-freepik-license
-Source: https://www.freepik.com/free-photo/cute-little-squirrel-standing-middle-sand-covered-ground_8753294.htm#page=1&query=marmot&position=4 is by @wirestock
+Screenshot image, Copyright Stocksnap
+License: https://stocksnap.io/license
+Source: https://stocksnap.io/photo/marmot-animal-WLV0FXFTGO
 
 == Changelog ==
+* Marmot checkbox and radio styles in Elementor Kit
+* Move theme options to Extra plugin
+* No assigned template info box
 
+= 1.0.3 - 2021-02-18 =
+* Remove forum link
+* Marmot checkbox and radio styles in Elementor Kit
+* Move theme options to Extra plugin
+* Dashboard changes
 
 = 1.0.2 =
 * FIX Installation link in admin dashboard

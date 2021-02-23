@@ -225,11 +225,12 @@ class Settings {
                             array_merge(
                                     [
                                         'hq_' . $custom_pod_key . '_archive_layout' => [
-                                            'default' => 0,
+                                            'default' => '',
                                             'label' => $custom_pod . ' ' . _x('Archive Layout', 'settings', 'marmot'),
                                             'type' => 'select',
                                             'section' => 'hq_' . $custom_pod_key . '_archive',
-                                            'choices' => get_elementor_templates('archive'),
+                                            'choices' => get_elementor_templates('archive', 0, 1),
+                                            'sanitize_callback' => '\Marmot\Customizer::sanitize_select',
                                         ]
                                     ],
                                     self::generate_layout_templates_controls('hq_' . $custom_pod_key . '_archive')
@@ -244,11 +245,12 @@ class Settings {
                             array_merge(
                                     [
                                         'hq_' . $custom_pod_key . '_single_layout' => [
-                                            'default' => 0,
+                                            'default' => '',
                                             'label' => $custom_pod . ' ' . _x('Single Layout', 'settings', 'marmot'),
                                             'type' => 'select',
                                             'section' => 'hq_' . $custom_pod_key . '_single',
-                                            'choices' => get_elementor_templates('single'),
+                                            'choices' => get_elementor_templates('single', 0, 1),
+                                            'sanitize_callback' => '\Marmot\Customizer::sanitize_select',
                                         ]
                                     ],
                                     self::generate_layout_templates_controls('hq_' . $custom_pod_key . '_single')

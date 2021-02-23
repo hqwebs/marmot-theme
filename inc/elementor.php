@@ -66,20 +66,20 @@ class Elementor {
 
         add_filter('template_include', [$this, 'template_include'], 15/* After Plugins/Elementor */);
 
-        // List all taxononies - dynamic tags
+// List all taxononies - dynamic tags
         add_filter('elementor_pro/dynamic_tags/post_terms/taxonomy_args', [$this, 'filter_post_terms_taxonomy_arg']);
 
-        // Force schemes on
+// Force schemes on
         add_action('elementor/schemes/enabled_schemes', [$this, 'enabled_schemes']);
 
         add_action('elementor/editor/after_enqueue_styles', [$this, 'editor_styles']);
 
-        // Prepare styles
+// Prepare styles
         add_action('wp_enqueue_scripts', [Parts\Layout::instance(), 'enqueue_styles'], 9900);
     }
 
     public function elementor_init() {
-        // On change resolutins
+// On change resolutins
         foreach (Elementor_Resposive::get_editable_breakpoints() as $breakpoint_key => $breakpoint) {
             foreach (['add', 'update'] as $action) {
                 add_action("{$action}_option_elementor_viewport_{$breakpoint_key}", ['Marmot\Customizer', 'generate_global_css']);
@@ -94,7 +94,7 @@ class Elementor {
     }
 
     public function editor_styles() {
-        wp_enqueue_style(THEME_SLUG . '-elementor-editor', THEME_URL . '/assets/css/admin/elementor-editor.css', '', THEME_VERSION);
+        wp_enqueue_style(THEME_SLUG . '-elementor-editor', MARMOT_THEME_URL . '/assets/css/admin/elementor-editor.css', '', THEME_VERSION);
     }
 
     /**
@@ -133,7 +133,7 @@ class Elementor {
                 class_exists('\Elementor\Plugin') &&
                 \Elementor\Plugin::$instance->editor->is_edit_mode()
         ) {
-            // Show all taxonomies
+// Show all taxonomies
             unset($taxonomy_args['object_type']);
         }
 
@@ -149,16 +149,15 @@ class Elementor {
  * 
  * @param string $type
  * @param bool $add_default_option
+ * @param bool $add_allow_empty_option
  * @return array
  */
-function get_elementor_templates($type, $add_default_option = false) {
+function get_elementor_templates($type, $add_default_option = false, $add_allow_empty_option = false) {
     $cache_key = SAVED_TEMPLATES_CACHE_KEY . '_' . $type . '_' . $add_default_option;
 
     if (isset(Elementor::$data[$cache_key])) {
         return Elementor::$data[$cache_key];
     }
-
-    $templates = get_transient($cache_key);
 
 // Load templates
 // TODO Load all template types at first call
@@ -181,16 +180,17 @@ function get_elementor_templates($type, $add_default_option = false) {
             $args
     );
 
-    if ($add_default_option) {
-        $templates = [
-            'default' => __('Default', 'marmot'),
-            'noeltmp' => __('No Template', 'marmot'),
-        ];
-    } else {
-        $templates = [
-            'noeltmp' => __('No Template', 'marmot'),
-        ];
+    $templates = [];
+
+    if ($add_allow_empty_option) {
+        $templates[''] = '';
     }
+
+    if ($add_default_option) {
+        $templates['default'] = __('Default', 'marmot');
+    }
+
+    $templates['noeltmp'] = __('No Template', 'marmot');
 
 
     if ($templatesRaw->have_posts()) {
@@ -230,7 +230,7 @@ function display_elementor_template($template_id, $echo = true) {
 
         if (class_exists('\Elementor\Plugin') && is_callable('Elementor\Plugin::instance')) {
             $elementor_instance = \Elementor\Plugin::instance();
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo $elementor_instance->frontend->get_builder_content_for_display($template_id);
         }
 
@@ -238,7 +238,7 @@ function display_elementor_template($template_id, $echo = true) {
     }
 
     if ($echo) {
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo Elementor::$data[$cache_key];
         unset(Elementor::$data[$cache_key]);
     }
@@ -264,7 +264,7 @@ function display_the_content($echo = true) {
     }
 
     if ($echo) {
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo Elementor::$data[$cache_key];
         unset(Elementor::$data[$cache_key]);
     }
@@ -282,7 +282,12 @@ function display_the_content($echo = true) {
 function choose_and_display_elementor_template($position, $main_template, $echo = true) {
     $template_id = choose_elementor_template($position, $main_template);
 
-    if ($template_id != 'noeltmp') {
+    if (empty($template_id)) {
+        if ($echo) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo set_elementor_template_message($position);
+        }
+    } elseif ($template_id != 'noeltmp') {
         display_elementor_template($template_id, $echo);
     }
 }
@@ -302,7 +307,7 @@ function choose_elementor_template($position, $main_template) {
 
     $cache_key = CHOOSE_TEMPLATES_CACHE_KEY . '_' . $position . '_' . $main_template;
 
-    // Check for cached
+// Check for cached
     if (isset(Elementor::$data[$cache_key])) {
         return Elementor::$data[$cache_key];
     }
@@ -318,26 +323,26 @@ function choose_elementor_template($position, $main_template) {
         'position_name' => $position . '_template',
     ];
 
-    // Get General
-    $tmp = get_theme_mod($templates['general']);
+// Get General
+    $tpl = get_theme_mod($templates['general']);
     if (function_exists('is_shop') && (is_shop())) { // Shop
         $rawtpl = get_theme_mod($templates['shop-home']);
         if (!empty($rawtpl) && $rawtpl != 'default') { // Shop Home
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
         } else { // Load archive if other are empty
             $rawtpl = get_theme_mod($templates['post-archive']);
             if (!empty($rawtpl) && $rawtpl != 'default') { // Shop Archive
-                $tmp = $rawtpl;
+                $tpl = $rawtpl;
             }
         }
     } elseif (is_home()) {  // Blog
         $rawtpl = get_theme_mod($templates['blog-home']);
         if (!empty($rawtpl) && $rawtpl != 'default') { // Blog Home
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
         } else {
             $rawtpl = get_theme_mod($templates['post-archive']);
             if (!empty($rawtpl) && $rawtpl != 'default') { // Blog Archive
-                $tmp = $rawtpl;
+                $tpl = $rawtpl;
             }
         }
     } elseif (is_archive()) { // Archives - Load by taxonomy, if not set load archive
@@ -347,7 +352,7 @@ function choose_elementor_template($position, $main_template) {
         if (isset($term->term_id)) {
             $rawtpl = \HQLib\get_term_meta($term->term_id, 'archive_' . $templates['position_name']);
             if (!empty($rawtpl) && $rawtpl != 'default') {
-                $tmp = $rawtpl;
+                $tpl = $rawtpl;
                 $archiveLoaded = 1;
             }
         }
@@ -355,24 +360,93 @@ function choose_elementor_template($position, $main_template) {
         if (!$archiveLoaded) { // Load archive template
             $rawtpl = get_theme_mod($templates['post-archive']);
             if (!empty($rawtpl) && $rawtpl != 'default') {
-                $tmp = $rawtpl;
+                $tpl = $rawtpl;
             }
         }
     } elseif (is_singular()) { // Single - Load template for all posts
         $rawtpl = \HQLib\get_post_meta(null, 'singular_' . $templates['position_name']);
         if (!empty($rawtpl) && $rawtpl != 'default') { // Per post
-            $tmp = $rawtpl;
+            $tpl = $rawtpl;
         } else { // By post type
             $rawtpl = get_theme_mod($templates['post-single']);
             if (!empty($rawtpl) && $rawtpl != 'default') {
-                $tmp = $rawtpl;
+                $tpl = $rawtpl;
             }
         }
     }
 
-    $tmp = apply_filters('hqt/elementor/template/choose/' . $post_type . '/' . $position, $tmp);
+    $tpl = apply_filters('hqt/elementor/template/choose/' . $post_type . '/' . $position, $tpl);
 
-    Elementor::$data[$cache_key] = $tmp;
+    Elementor::$data[$cache_key] = $tpl;
 
-    return $tmp;
+    return $tpl;
+}
+
+/**
+ * Return template creation/setup instructions
+ * 
+ * @since 1.0.0
+ * 
+ * @param string $position
+ * @param string $post_type
+ * @return string
+ */
+function set_elementor_template_message($position, $post_type = '') {
+    $possition_name = '';
+    $template_type = '';
+    $how_to_link = '/documentation/';
+    //var_dump($position);
+    switch ($position) {
+        case 'header':
+            $possition_name = 'Header';
+            $template_type = 'header';
+            $how_to_link = '/documentation/how-to-create-and-attach-header/';
+            break;
+        case 'footer':
+            $possition_name = 'Footer';
+            $template_type = 'footer';
+            $how_to_link = '/documentation/how-to-create-and-attach-footer/';
+            break;
+        case 'blog-home':
+            $possition_name = 'Blog Home Archive';
+            $template_type = 'archive';
+            $how_to_link = '/documentation/how-to-create-blog-archive/';
+            break;
+        case 'single':
+            if ('post' === $post_type) {
+                $possition_name = ucfirst($post_type) . ' Single';
+                $template_type = 'single';
+                $how_to_link = '/documentation/how-to-create-single-post/';
+            } else { // Custom post type
+                $possition_name = 'Blog Archive';
+                $template_type = 'archive';
+                $how_to_link = '/documentation/create-archive-and-single-page-templates-for-custom-post-type/';
+            }
+            break;
+        case 'archive':
+            if ('post' === $post_type) {
+                $possition_name = ucfirst($post_type) . ' Single';
+                $template_type = 'single';
+                $how_to_link = '/documentation/how-to-create-blog-archive/';
+            } else { // Custom post type
+                $possition_name = ucfirst($post_type) . ' Archive';
+                $template_type = 'archive';
+                $how_to_link = '/documentation/create-archive-and-single-page-templates-for-custom-post-type/';
+            }
+            break;
+
+        default:
+            break;
+    }
+    if (empty($template_type)) {
+        return;
+    }
+
+    return '<div class="empty-template-area">' . $possition_name . ' Area - Marmot theme is in "Full Customizable Mode". '
+            . 'Here you can '
+            . '<a target="_blank" href="' . esc_url(admin_url('edit.php?post_type=elementor_library&tabs_group=library&elementor_library_type=' . $template_type)) . '">create</a>'
+            . ' and '
+            . '<a target="_blank" href="' . esc_url(THEME_SITE_URL . $how_to_link) . '">attach</a>'
+            . ' template. Pre-made website are available for faster setup. '
+            . '<a target="_blank" href="' . esc_url(admin_url('admin.php?page=marmot-ready-sites')) . '">See our premade websites</a>.</div>';
 }
